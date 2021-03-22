@@ -1,10 +1,11 @@
-DROP TABLE IF EXISTS users;
-CREATE TABLE users
+DROP TABLE IF EXISTS card_transactions;
+CREATE TABLE card_transactions
 (
-    id       CHAR(36) PRIMARY KEY,
-    login    VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255)        NOT NULL,
-    status   VARCHAR(255)        NOT NULL DEFAULT 'active'
+    id                CHAR(36) PRIMARY KEY,
+    source            VARCHAR(19) NOT NULL,
+    target            VARCHAR(19) NOT NULL,
+    amount_in_kopecks INT         NOT NULL,
+    created           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS cards;
