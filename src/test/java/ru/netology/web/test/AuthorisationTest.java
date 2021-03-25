@@ -31,15 +31,22 @@ public class AuthorisationTest {
     }
 
     @Test
-    void shouldAuthorisationIfThreeInvalidPass() throws SQLException {
+    void shouldAuthorisationInvalidPass() throws SQLException {
         open("http://0.0.0.0:9999/");
         val loginPage = new LoginPage();
         val authInfo = DataHelper.getAuthInfo();
-        val verificationPage = loginPage.IfThreeInvalidPass(authInfo);
-        verificationPage.shouldBe(Condition.visible);
+        loginPage.invalidPass(authInfo);
 
     }
 
+    @Test
+    void shouldAuthorisationIfInvalidPassThreeTime() throws SQLException {
+        open("http://0.0.0.0:9999/");
+        val loginPage = new LoginPage();
+        val authInfo = DataHelper.getAuthInfo();
+        loginPage.invalidPassThreeTimes(authInfo);
+
+    }
 
 
     @AfterEach

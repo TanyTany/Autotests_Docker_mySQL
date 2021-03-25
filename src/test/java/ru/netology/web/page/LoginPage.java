@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.data.User;
 
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
@@ -13,6 +14,7 @@ public class LoginPage {
     private SelenideElement loginButton = $("[data-test-id=action-login]");
 
     private SelenideElement authError = $("[data-test-id=error-notification]");
+    private SelenideElement blockError = $(withText("Доступ заблокирован"));
 
     public VerificationPage validLogin(DataHelper.AuthInfo info) {
 
@@ -22,16 +24,19 @@ public class LoginPage {
         return new VerificationPage();
     }
 
-    public SelenideElement IfThreeInvalidPass(DataHelper.AuthInfo info) {
+    public void invalidPass (DataHelper.AuthInfo info) {
         loginField.setValue(info.getLogin());
-        if (info.getLogin().equals("vasya"))passwordField.setValue("password");
-        else {
-            passwordField.setValue("password123");
-        }
+        passwordField.setValue("password123");
+        loginButton.click();
+        authError.shouldBe(Condition.visible);
+    }
+
+    public void invalidPassThreeTimes (DataHelper.AuthInfo info) {
+        loginField.setValue(info.getLogin());
+        passwordField.setValue("password123");
         loginButton.click();
         loginButton.click();
         loginButton.click();
-        SelenideElement error = authError.shouldBe(Condition.visible);
-        return error;
+        blockError.shouldBe(Condition.visible);
     }
 }
