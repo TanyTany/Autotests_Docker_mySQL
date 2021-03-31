@@ -34,7 +34,7 @@ public class AuthorisationTest {
     void shouldAuthorisationInvalidPass() throws SQLException {
         open("http://0.0.0.0:9999/");
         val loginPage = new LoginPage();
-        val authInfo = DataHelper.getAuthInfo();
+        val authInfo = DataHelper.getInvalidPass();
         loginPage.invalidPass(authInfo);
 
     }
@@ -43,7 +43,7 @@ public class AuthorisationTest {
     void shouldAuthorisationIfInvalidPassThreeTime() throws SQLException {
         open("http://0.0.0.0:9999/");
         val loginPage = new LoginPage();
-        val authInfo = DataHelper.getAuthInfo();
+        val authInfo = DataHelper.getInvalidPass();
         loginPage.invalidPassThreeTimes(authInfo);
 
     }

@@ -30,6 +30,10 @@ public class DataHelper {
         return new AuthInfo("2", "petya", "123qwerty", user1);
     }
 
+    public static AuthInfo getInvalidPass() {
+        return  new AuthInfo("1", "vasya", "password", "");
+    }
+
 
     @Value
     public static class VerificationCode {

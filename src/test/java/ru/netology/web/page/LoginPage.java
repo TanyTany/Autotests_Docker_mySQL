@@ -5,8 +5,11 @@ import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.data.User;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
+import static java.time.Duration.*;
 
 public class LoginPage {
     private SelenideElement loginField = $("[data-test-id=login] input");
@@ -24,16 +27,16 @@ public class LoginPage {
         return new VerificationPage();
     }
 
-    public void invalidPass (DataHelper.AuthInfo info) {
+    public void invalidPass(DataHelper.AuthInfo info) {
         loginField.setValue(info.getLogin());
-        passwordField.setValue("password123");
+        passwordField.setValue(info.getPassword());
         loginButton.click();
         authError.shouldBe(Condition.visible);
     }
 
     public void invalidPassThreeTimes (DataHelper.AuthInfo info) {
         loginField.setValue(info.getLogin());
-        passwordField.setValue("password123");
+        passwordField.setValue(info.getPassword());
         loginButton.click();
         loginButton.click();
         loginButton.click();
