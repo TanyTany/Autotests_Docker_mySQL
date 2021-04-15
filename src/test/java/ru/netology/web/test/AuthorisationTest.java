@@ -1,10 +1,7 @@
 package ru.netology.web.test;
 
-import com.codeborne.selenide.Condition;
 import lombok.val;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.data.DbInteraction;
 import ru.netology.web.page.LoginPage;
@@ -15,13 +12,12 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class AuthorisationTest {
     @BeforeEach
-    void setUp() {
-        DbInteraction.setUp();
-    }
-
+    void setUp() throws SQLException {
+        DbInteraction.deleteTables();
+        DbInteraction.setUp(); }
 
     @Test
-    void shouldAuthorisationValidUser() throws SQLException {
+    void shouldAuthorisationValid1User() throws SQLException {
     open("http://0.0.0.0:9999/");
         val loginPage = new LoginPage();
         val authInfo = DataHelper.getAuthInfo();
@@ -29,6 +25,18 @@ public class AuthorisationTest {
         val verificationCode = DbInteraction.getAuthCodeFromUser();
         verificationPage.validVerify(verificationCode);
     }
+
+    @Test
+    void shouldAuthorisationInvalidUser() throws SQLException {
+        open("http://0.0.0.0:9999/");
+        val loginPage = new LoginPage();
+        val authInfo = DataHelper.getOtherAuthInfo();
+        val verificationPage = loginPage.validLogin(authInfo);
+        val verificationCode = DbInteraction.getAuthCodeFromUser();
+        verificationPage.validVerify(verificationCode);
+    }
+
+
 
     @Test
     void shouldAuthorisationInvalidPass() throws SQLException {
@@ -48,10 +56,10 @@ public class AuthorisationTest {
 
     }
 
-
     @AfterEach
-    void deleteTables() throws SQLException {
+     void deleteTabs() throws SQLException {
         DbInteraction.deleteTables();
     }
+
 }
 

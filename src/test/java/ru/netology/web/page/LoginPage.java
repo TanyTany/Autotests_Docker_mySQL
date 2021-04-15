@@ -3,13 +3,13 @@ package ru.netology.web.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
-import ru.netology.web.data.User;
+
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
-import static java.time.Duration.*;
+
 
 public class LoginPage {
     private SelenideElement loginField = $("[data-test-id=login] input");
@@ -40,6 +40,6 @@ public class LoginPage {
         loginButton.click();
         loginButton.click();
         loginButton.click();
-        blockError.shouldBe(Condition.visible);
+        blockError.shouldBe(Condition.visible, Duration.ofSeconds(6));
     }
 }
