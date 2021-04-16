@@ -37,10 +37,6 @@ Run in this directory:
 docker-compose up
 ```
 
-Connect to container:
-```
-docker-compose exec mycql mysql -u (user) -p (database)
-```
 
 **Run the `.jar` file:**
 ```
@@ -49,8 +45,8 @@ java -jar app-deadline.jar
 The server should start and you'll see something like:
 
 ~~~~~~~~
-[DefaultDispatcher-worker-2] INFO  Application - No ktor.deployment.watch patterns specified, automatic reload is not active
-[DefaultDispatcher-worker-2] INFO  Application - Responding at http://0.0.0.0:9999
+INFO  Application - No ktor.deployment.watch patterns specified, automatic reload is not active
+INFO  Application - Responding at http://0.0.0.0:9999
 ~~~~~~~~
 
 You can access the apps and pages by visiting:
